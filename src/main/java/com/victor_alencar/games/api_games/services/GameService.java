@@ -3,6 +3,7 @@ package com.victor_alencar.games.api_games.services;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -25,5 +26,15 @@ public class GameService {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public List<Game> findByName(String name) {
+        List<Game> games = getGames();
+        if (games != null) {
+            return games.stream()
+                        .filter(game -> game.name.equalsIgnoreCase(name))
+                        .collect(Collectors.toList());
+        }
+        return null;
     }
 }
